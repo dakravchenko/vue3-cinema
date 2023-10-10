@@ -1,27 +1,25 @@
 <template>
     <div class="home">
-      <div v-for="movie in movies" :key="movie.id">
-        <p>{{ movie.title }}</p>
-      </div>
+      <MovieResultsDisplay :movies="movies"/>
     </div>
   </template>
   
   <script>
   import { onMounted, ref } from 'vue'
   import getFilmsByName from '../composables/getFilmsByName'
+  import MovieResultsDisplay from '../components/MovieResultsDisplay.vue'
   
   
   export default {
     name: 'HomeView',
-    components: {
-    },
+    components: {MovieResultsDisplay},
     setup(){
-      const movies = ref({})
+      const movies = ref([])
       const error = ref(null)
   
       const fetchMovies = async () => {
         const {data, errorMessage} = await getFilmsByName('avatar')
-        movies.value = data
+        movies.value = data.results
         error.value = errorMessage
       } 
       onMounted(() => {
