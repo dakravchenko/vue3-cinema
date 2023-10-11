@@ -1,5 +1,5 @@
 <template>
-    <div class="main-content">
+    <div v-show='movies' class="main-content">
         <div class="movie-container" v-for="movie in movies" :key="movie.id">
             <img class="poster" :src="movie.backdrop_path ? `https://image.tmdb.org/t/p/w500/${movie.backdrop_path}` : require('@/assets/no-poster.png')" :alt="movie.title">
             <h2>{{ getFilmTitleAndRating(movie) }}</h2>

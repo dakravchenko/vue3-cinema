@@ -5,7 +5,7 @@ export default async function getFilmsByName(query) {
     try {
       const res = await fetch(url);
       if (!res.ok) {
-        throw new Error("Cannot display movies");
+        throw new Error("Cannot display movies. Try again later");
       }
       const moviesData = await res.json();
       return { data: moviesData, errorMessage: null }
