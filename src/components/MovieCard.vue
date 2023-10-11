@@ -30,14 +30,14 @@ export default {
   height: 281px;
 }
 
-.film-container h2 {
+.movie-container h2 {
   color: #505050;
   font-size: 25px;
   font-weight: 500;
   font-family: "Epilogue";
   margin: 30px 0 10px 0;
 }
-.film-container h3 {
+.movie-container h3 {
   color: #505050;
   font-size: 15px;
   font-weight: 400;
@@ -46,30 +46,12 @@ export default {
 }
 
 @media (max-width: 1600px) {
-  .main-content {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .film-container {
-    width: 400px;
-  }
   .poster {
     width: 400px;
     height: 225px;
   }
 }
-@media (max-width: 900px) {
-  .main-content {
-    grid-template-columns: 1fr;
-  }
-}
 @media (max-width: 460px) {
-  .main-content {
-    margin-left: 10px;
-    justify-items: flex-start;
-  }
-  .film-container {
-    width: 97%;
-  }
   .poster {
     width: 100%;
   }

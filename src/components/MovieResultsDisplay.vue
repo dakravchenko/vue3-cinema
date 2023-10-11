@@ -31,5 +31,28 @@ export default {
 .movie-container {
   width: 500px;
 }
+@media (max-width: 1600px) {
+  .main-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .movie-container {
+    width: 400px;
+  }
+
+}
+@media (max-width: 900px) {
+  .main-content {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 460px) {
+  .main-content {
+    margin-left: 10px;
+    justify-items: flex-start;
+  }
+  .movie-container {
+    width: 97%;
+  }
+}
 
 </style>
