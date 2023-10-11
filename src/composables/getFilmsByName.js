@@ -1,5 +1,5 @@
 export default async function getFilmsByName(query) {
-    const apiKey = '464e0732a4ff7c3b5e09de7baa51e9f2'
+    const apiKey = '48dff5b67e789d262126f79823385995'
    
     const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}&page=1&include_adult=false`;
     try {
