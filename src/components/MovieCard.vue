@@ -1,5 +1,7 @@
 <template>
-    <img class="poster" :src="movie.backdrop_path ? `https://image.tmdb.org/t/p/w500/${movie.backdrop_path}` : require('@/assets/no-poster.png')" :alt="movie.title">
+    <router-link :to="{name: 'MovieDetails', params: {id: movie.id}}">
+        <img class="poster" :src="movie.backdrop_path ? `https://image.tmdb.org/t/p/w500/${movie.backdrop_path}` : require('@/assets/no-poster.png')" :alt="movie.title">
+    </router-link>
     <h2>{{ getFilmTitleAndRating(movie) }}</h2>
     <h3>{{ movie.overview ? movie.overview : 'Oops no description yet. Perhaps this movie will be described soon' }}</h3>
 </template>
