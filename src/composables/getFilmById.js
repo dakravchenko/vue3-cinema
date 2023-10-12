@@ -1,11 +1,17 @@
-const apiKey = '48dff5b67e789d262126f79823385995'
+const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0OGRmZjViNjdlNzg5ZDI2MjEyNmY3OTgyMzM4NTk5NSIsInN1YiI6IjYzZjRlYjU3MTUzNzZjMDA3ODE5ZjQ4YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QiSbIkjOMD6l9NBxFIf992bA3K1okvnmturj41HGKi8'
+  }
+};
 
 
 export default async function getFilmsById(id) {
    
-    const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}?language=en-US`;
+    const url = `https://api.themoviedb.org/3/movie/${id}?language=en-US`;
     try {
-      const res = await fetch(url);
+      const res = await fetch(url, options);
       if (!res.ok) {
         throw new Error("No film was found");
       }
