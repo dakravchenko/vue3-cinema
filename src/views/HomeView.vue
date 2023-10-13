@@ -1,5 +1,6 @@
 <template>
     <div class="home">
+      <MovieByNameInput/>
       <ErrorDisplayingMovies :error="error"/>
       <MovieResultsDisplay :movies="movies"/>
     </div>
@@ -10,11 +11,12 @@
   import getFilmsByName from '../composables/getFilmsByName'
   import MovieResultsDisplay from '../components/MovieResultsDisplay.vue'
   import ErrorDisplayingMovies from '../components/ErrorDisplayingMovies.vue'
+  import MovieByNameInput from '../components/MovieByNameInput.vue'
   
   
   export default {
     name: 'HomeView',
-    components: {MovieResultsDisplay, ErrorDisplayingMovies},
+    components: {MovieResultsDisplay, ErrorDisplayingMovies, MovieByNameInput},
     setup(){
       const movies = ref([])
       const error = ref(null)
