@@ -7,7 +7,7 @@
   </template>
   
   <script>
-  import { onMounted, ref } from 'vue'
+  import { ref, provide, watch } from 'vue'
   import getFilmsByName from '../composables/getFilmsByName'
   import MovieResultsDisplay from '../components/MovieResultsDisplay.vue'
   import ErrorDisplayingMovies from '../components/ErrorDisplayingMovies.vue'
@@ -20,19 +20,25 @@
     setup(){
       const movies = ref([])
       const error = ref(null)
+      const query = ref('')
+
+      provide('query', query)
   
       const fetchMovies = async () => {
-        const {data, errorMessage} = await getFilmsByName('avatar')
+        const {data, errorMessage} = await getFilmsByName(query)
         if (errorMessage) {
         error.value = errorMessage;
       } else {
         movies.value = data.results;
       }
       } 
-      onMounted(() => {
-        fetchMovies()
-        
-      })
+      watch(query, () => {
+      fetchMovies()
+    });
+    watch(query, (newValue) => {
+      console.log('Значение предоставленной переменной изменилось:', newValue);
+      // Вы можете выполнить здесь любые дополнительные действия при изменении значения.
+    });
       return {movies, error}
     }
   
