@@ -33,9 +33,8 @@
       }
     } 
      
-      watch(query, (updatedQuery) => {
-        fetchMovies(updatedQuery)
-      });
+      watch(query, fetchMovies);
+      
       return {movies, error}
     }
   
