@@ -1,45 +1,57 @@
 <template>
-    <router-link :to="{name: 'MovieDetails', params: {id: movie.id}}">
-        <img class="poster" :src="movie.backdrop_path ? `https://image.tmdb.org/t/p/w500/${movie.backdrop_path}` : require('@/assets/no-poster.png')" :alt="movie.title">
-    </router-link>
-    <h2>{{ getFilmTitleAndRating(movie) }}</h2>
-    <h3>{{ movie.overview ? movie.overview : 'Oops no description yet. Perhaps this movie will be described soon' }}</h3>
+  <router-link :to="{ name: 'MovieDetails', params: { id: movie.id } }">
+    <img class="poster" :src="getBackdropPath" :alt="movie.title" />
+  </router-link>
+  <h2>{{ movieTitleAndRating }}</h2>
+  <h3>{{ movieDescription }}</h3>
 </template>
 
 <script>
 export default {
-    props : {
-        movie : Object
-    },
-    setup() {
-    const getFilmTitleAndRating = (movie) => {
+  props: {
+    movie: Object,
+  },
+  methods: {
+    getFilmTitleAndRating(movie) {
       const releaseDate = new Date(movie.release_date);
       const releaseYear = releaseDate.getFullYear();
       const voteAverage = movie.vote_average === 0 ? "" : movie.vote_average;
       return `${movie.original_title} (${releaseYear}) ${voteAverage}`;
-    };
-
-    return {
-      getFilmTitleAndRating
-    };
-  }
-}
+    },
+  },
+  computed: {
+    getBackdropPath() {
+      return this.movie.backdrop_path
+        ? `https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`
+        : require('@/assets/no-poster.png');
+    },
+    movieTitleAndRating() {
+      return this.getFilmTitleAndRating(this.movie);
+    }, 
+    movieDescription() {
+      return this.movie.overview
+        ? this.movie.overview
+        : "Oops no description yet. Perhaps this movie will be described soon";
+    },
+  },
+};
 </script>
 
-<style>
+<style scoped>
 .poster {
-  width: 500px;
-  height: 281px;
+  width: 100%;
+  height: auto;
 }
 
-.movie-container h2 {
+h2 {
   color: #505050;
   font-size: 25px;
   font-weight: 500;
   font-family: "Epilogue";
   margin: 30px 0 10px 0;
 }
-.movie-container h3 {
+
+h3 {
   color: #505050;
   font-size: 15px;
   font-weight: 400;
@@ -49,19 +61,19 @@ export default {
 
 @media (max-width: 1600px) {
   .poster {
-    width: 400px;
-    height: 225px;
+    max-width: 400px;
   }
 }
+
 @media (max-width: 460px) {
   .poster {
-    width: 100%;
+    max-width: 100%;
   }
 }
+
 @media (max-width: 400px) {
   .poster {
-    width: 300px;
-    height: 168px;
+    max-width: 300px;
   }
 }
 </style>
