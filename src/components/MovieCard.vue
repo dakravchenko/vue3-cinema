@@ -22,7 +22,7 @@ export default {
   computed: {
     getBackdropPath() {
       return this.movie.backdrop_path
-        ? `https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`
+        ? `https://image.tmdb.org/t/p/w500/${this.movie.backdrop_path}`
         : require('@/assets/no-poster.png');
     },
     movieTitleAndRating() {
