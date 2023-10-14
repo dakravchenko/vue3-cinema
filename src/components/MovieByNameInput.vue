@@ -1,17 +1,21 @@
 <template>
   <div class="input-container">
-    <input type="text" placeholder="Type to find..." v-model="query" />
+    <input type="text" placeholder="Type to find..." v-model="query" @input="handleInput" />
   </div>
 </template>
 
 <script>
-import { ref, inject } from 'vue';
+import { ref } from 'vue';
 
 export default {
-  setup() {
-    const query = inject('query', ref(''));
+  setup(_, { emit }) {
+    const query = ref('');
 
-    return { query };
+    const handleInput = () => {
+      emit('update:query', query.value);
+    };
+
+    return { query, handleInput };
   },
 };
 </script>
