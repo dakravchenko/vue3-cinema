@@ -1,41 +1,41 @@
 <template>
-  <ErrorDisplayingMovies :error="error"/>
-  <MovieDetails :movie="movie"/>
+  <div class="movie-details">
+    <ErrorDisplayingMovies :error="error" />
+    <MovieDetails :movie="movie" />
+  </div>
 </template>
 
 <script>
-import { onMounted, ref } from 'vue'
-import getFilmsById from '../composables/getFilmById'
-import MovieDetails from '../components/MovieDetails.vue'
-import ErrorDisplayingMovies from '../components/ErrorDisplayingMovies.vue'
+import { onMounted, ref } from 'vue';
+import getFilmsById from '../composables/getFilmById';
+import MovieDetails from '../components/MovieDetails.vue';
+import ErrorDisplayingMovies from '../components/ErrorDisplayingMovies.vue';
 
 export default {
-    name: 'MovieDetailsView',
-    components: {MovieDetails, ErrorDisplayingMovies},
-    props: ['id'],
-    setup(props){
-        const movie = ref(null)
-        const error = ref(null)
+  name: 'MovieDetailsView',
+  components: { MovieDetails, ErrorDisplayingMovies },
+  props: ['id'],
+  setup(props) {
+    const movie = ref(null);
+    const error = ref(null);
 
-        const fetchMovie = async () => {
-        const {data, errorMessage} = await getFilmsById(props.id)
-        if (errorMessage) {
+    const fetchMovie = async () => {
+      const { data, errorMessage } = await getFilmsById(props.id);
+      if (errorMessage) {
         error.value = errorMessage;
       } else {
         movie.value = data;
       }
-      } 
-      onMounted(() => {
-        fetchMovie()
-        
-      })
-      return {movie, error}
-    }
+    };
 
-}
+    onMounted(fetchMovie);
+
+    return { movie, error };
+  },
+};
 </script>
 
-<style scoped>
+<style>
 .movie-details {
   max-width: 800px;
   margin: 0 auto;
