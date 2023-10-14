@@ -7,7 +7,7 @@
   </template>
   
   <script>
-  import { ref, provide, watch } from 'vue'
+  import { ref, provide, watch} from 'vue'
   import getFilmsByName from '../composables/getFilmsByName'
   import MovieResultsDisplay from '../components/MovieResultsDisplay.vue'
   import ErrorDisplayingMovies from '../components/ErrorDisplayingMovies.vue'
@@ -24,21 +24,18 @@
 
       provide('query', query)
   
-      const fetchMovies = async () => {
+      const fetchMovies = async (query) => {
         const {data, errorMessage} = await getFilmsByName(query)
         if (errorMessage) {
         error.value = errorMessage;
       } else {
         movies.value = data.results;
       }
-      } 
-      watch(query, () => {
-      fetchMovies()
-    });
-    watch(query, (newValue) => {
-      console.log('Значение предоставленной переменной изменилось:', newValue);
-      // Вы можете выполнить здесь любые дополнительные действия при изменении значения.
-    });
+    } 
+     
+      watch(query, (updatedQuery) => {
+        fetchMovies(updatedQuery)
+      });
       return {movies, error}
     }
   
