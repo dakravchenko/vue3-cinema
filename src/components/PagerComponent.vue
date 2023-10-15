@@ -1,10 +1,13 @@
 <template>
   <div class="pager-wrapper" v-if="pageCount">
-    <div class="prev-btn"></div>
+    <div class="prev-btn">Prev</div>
     <ul class="buttons">
-      <li v-for="buttonValue in buttonsValues" :key="buttonValue">{{ buttonValue }}</li>
+      <li v-for="buttonValue in buttonsValues" :key="buttonValue" 
+      :class="{'active-button': buttonValue === currentPage }"
+      >{{ buttonValue }}
+    </li>
     </ul>
-    <div class="next-btn"></div>
+    <div class="next-btn">Next</div>
   </div>
 </template>
 
@@ -33,7 +36,7 @@ export default {
             this.buttonsValues.push(x)
           }
         }
-        console.log(this.buttonsValues)
+      
       }
     },
     mounted() {
@@ -43,5 +46,47 @@ export default {
 </script>
 
 <style>
+.pager-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
 
+.button-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+}
+
+.prev-btn,
+.next-btn {
+  padding: 7px 20px; 
+  background-color: #0074e4;
+  color: #fff;
+  cursor: pointer;
+}
+
+.buttons {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 10px;
+}
+
+.buttons li {
+  padding: 7px 10px; 
+  background-color: #f0f0f0; 
+  cursor: pointer;
+}
+.active-button {
+  border: 2px solid rgb(10, 9, 9); 
+}
+
+.buttons li:hover {
+  background-color: #aba2a2;
+
+}
 </style>
