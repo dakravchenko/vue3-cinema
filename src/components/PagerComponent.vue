@@ -44,15 +44,18 @@ export default {
     previousPage() {
       if (this.currentPage > 1) {
         this.currentPage--
+        this.$emit('changePage', this.currentPage)
       }
     },
     nextPage() {
       if (this.currentPage < this.pageCount) {
         this.currentPage++
+        this.$emit('changePage', this.currentPage)
       }
     },
     goToPage(page) {
       this.currentPage = page
+      this.$emit('changePage', this.currentPage)
     }
   },
   updated() {

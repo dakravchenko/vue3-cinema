@@ -3,7 +3,7 @@
     <MovieByNameInput @update:query="query = $event" />
     <ErrorDisplayingMovies :error="error" />
     <MovieResultsDisplay :movies="movies" />
-    <PagerComponent :pageCount="pageCount"/>
+    <PagerComponent :pageCount="pageCount" @changePage="receivePageFromPager"/>
   </div>
 </template>
 
@@ -23,10 +23,11 @@ export default {
     const error = ref(null);
     const query = ref('');
     const pageCount = ref(null)
+    const currentPage = ref(1)
     let timer = null;
 
-    const fetchMovies = async (query) => {
-      const { data, errorMessage } = await getFilmsByName(query);
+    const fetchMovies = async (query, currentPage) => {
+      const { data, errorMessage } = await getFilmsByName(query, currentPage);
       if (errorMessage) {
         error.value = errorMessage;
       } else {
@@ -35,7 +36,7 @@ export default {
       }
     };
 
-    const handleInput = (query) => {
+    const handleInput = (query, currentPage) => {
       clearTimeout(timer);
 
       if (query.trim().length === 0) {
@@ -43,13 +44,24 @@ export default {
       }
 
       timer = setTimeout(() => {
-        fetchMovies(query);
+        fetchMovies(query, currentPage);
       }, 1000);
     };
 
-    watch(query, handleInput);
+    const receivePageFromPager = (newPageValue) => {
+      currentPage.value = newPageValue
 
-    return { movies, error, query, pageCount };
+    }
+
+    watch(query, () => {
+    handleInput(query.value, currentPage.value);
+  });
+
+  watch(currentPage, () => {
+    handleInput(query.value, currentPage.value);
+  });
+
+    return { movies, error, query, pageCount, receivePageFromPager };
   },
 };
 </script>
