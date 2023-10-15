@@ -1,9 +1,9 @@
 <template>
   <div class="home">
-    <MovieByNameInput @update:query="query = $event" />
+    <MovieByNameInput @update:query="updateQuery" />
     <ErrorDisplayingMovies :error="error" />
     <MovieResultsDisplay :movies="movies" />
-    <PagerComponent :pageCount="pageCount" @changePage="receivePageFromPager"/>
+    <PagerComponent :pageCount="pageCount" @changePage="updateCurrentPage" />
   </div>
 </template>
 
@@ -22,46 +22,48 @@ export default {
     const movies = ref([]);
     const error = ref(null);
     const query = ref('');
-    const pageCount = ref(null)
-    const currentPage = ref(1)
+    const pageCount = ref(null);
+    const currentPage = ref(1);
     let timer = null;
 
-    const fetchMovies = async (query, currentPage) => {
-      const { data, errorMessage } = await getFilmsByName(query, currentPage);
+    const updateQuery = (newQuery) => {
+      query.value = newQuery;
+      refreshData();
+    };
+
+    const updateCurrentPage = (newPage) => {
+      currentPage.value = newPage;
+      refreshData();
+    };
+
+    const refreshData = () => {
+      clearTimeout(timer);
+      if (query.value.trim().length > 0) {
+        timer = setTimeout(() => {
+          fetchData();
+        }, 1500);
+      }
+    };
+
+    const fetchData = async () => {
+      const { data, errorMessage } = await getFilmsByName(query.value, currentPage.value);
       if (errorMessage) {
         error.value = errorMessage;
       } else {
         movies.value = data.results;
-        pageCount.value = data.total_pages
+        pageCount.value = data.total_pages;
       }
     };
-
-    const handleInput = (query, currentPage) => {
-      clearTimeout(timer);
-
-      if (query.trim().length === 0) {
-        return;
-      }
-
-      timer = setTimeout(() => {
-        fetchMovies(query, currentPage);
-      }, 1000);
-    };
-
-    const receivePageFromPager = (newPageValue) => {
-      currentPage.value = newPageValue
-
-    }
 
     watch(query, () => {
-    handleInput(query.value, currentPage.value);
-  });
+      refreshData();
+    });
 
-  watch(currentPage, () => {
-    handleInput(query.value, currentPage.value);
-  });
+    watch(currentPage, () => {
+      refreshData();
+    });
 
-    return { movies, error, query, pageCount, receivePageFromPager };
+    return { movies, error, query, pageCount, updateQuery, updateCurrentPage };
   },
 };
 </script>
