@@ -1,55 +1,64 @@
 <template>
   <div class="pager-wrapper" v-if="pageCount">
-    <button @click="() => currentPage--" class="prev-btn" :disabled="currentPage === 1">Prev</button>
+    <button @click="previousPage" class="prev-btn" :disabled="currentPage === 1">Prev</button>
     <ul class="buttons">
-      <li @click="() => currentPage = buttonValue" v-for="buttonValue in buttonsValues" :key="buttonValue" 
-      :class="{'active-button': buttonValue === currentPage }"
-      >{{ buttonValue }}
-    </li>
+      <li @click="goToPage(buttonValue)" v-for="buttonValue in buttonsValues" :key="buttonValue" 
+      :class="{ 'active-button': buttonValue === currentPage }">{{ buttonValue }}</li>
     </ul>
-    <button @click="() => currentPage++" class="next-btn" :disabled="currentPage === pageCount">Next</button>
+    <button @click="nextPage" class="next-btn" :disabled="currentPage === pageCount">Next</button>
   </div>
 </template>
 
 <script>
 export default {
-    props: {
-        pageCount : Number
-    },
-    data(){
-      return {
-        currentPage : 1,
-        buttonsValues : []
+  props: {
+    pageCount: Number
+  },
+  data() {
+    return {
+      currentPage: 1,
+      buttonsValues: []
+    }
+  },
+  methods: {
+    calculateValuesOfButtons() {
+      const maxButtons = 5
+      this.buttonsValues = []
+
+      if (this.pageCount <= maxButtons) {
+        for (let x = 1; x <= this.pageCount; x++) {
+          this.buttonsValues.push(x)
+        }
+      } else if (this.pageCount > maxButtons && this.currentPage === 1) {
+        for (let x = 1; x <= maxButtons; x++) {
+          this.buttonsValues.push(x)
+        }
+      } else if (this.pageCount > maxButtons && this.currentPage !== 1) {
+        this.buttonsValues.push(1)
+        this.buttonsValues.push(this.currentPage)
+        for (let x = this.currentPage + 1; x <= this.currentPage + 3 && x <= this.pageCount; x++) {
+          this.buttonsValues.push(x)
+        }
       }
     },
-    methods: {
-      calculateValuesOfButtons() {
-  this.buttonsValues = []
-  const currentPage = this.currentPage
-  const maxButtons = 5
-
-  if (this.pageCount <= maxButtons) {
-    for (let x = 1; x <= this.pageCount; x++) {
-      this.buttonsValues.push(x)
+    previousPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--
+      }
+    },
+    nextPage() {
+      if (this.currentPage < this.pageCount) {
+        this.currentPage++
+      }
+    },
+    goToPage(page) {
+      this.currentPage = page
     }
-  } else if (this.pageCount > maxButtons && currentPage === 1) {
-    for (let x = 1; x <= maxButtons; x++) {
-      this.buttonsValues.push(x)
-    }
-  } else if (this.pageCount > maxButtons && currentPage !== 1) {
-    this.buttonsValues.push(1)
-    this.buttonsValues.push(currentPage)
-    for (let x = currentPage + 1; x <= currentPage + 3 && x <= this.pageCount; x++) {
-      this.buttonsValues.push(x)
-    }
+  },
+  updated() {
+    this.calculateValuesOfButtons()
   }
 }
-    },
-    updated() {
-      this.calculateValuesOfButtons()
-      console.log(this.currentPage)
-    }
-    }
 </script>
 
 <style>
