@@ -45,18 +45,27 @@ export default {
       if (this.currentPage > 1) {
         this.currentPage--
         this.$emit('changePage', this.currentPage)
+        this.scrollToTop();
       }
     },
     nextPage() {
       if (this.currentPage < this.pageCount) {
         this.currentPage++
         this.$emit('changePage', this.currentPage)
+        this.scrollToTop();
       }
     },
     goToPage(page) {
       this.currentPage = page
       this.$emit('changePage', this.currentPage)
-    }
+      this.scrollToTop();
+    },
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    },
   },
   updated() {
     this.calculateValuesOfButtons()
