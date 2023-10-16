@@ -31,12 +31,10 @@ export default {
 
     const updateQuery = (newQuery) => {
       query.value = newQuery;
-      refreshData();
     };
 
     const updateCurrentPage = (newPage) => {
       currentPage.value = newPage;
-      refreshData();
     };
 
     const refreshData = () => {

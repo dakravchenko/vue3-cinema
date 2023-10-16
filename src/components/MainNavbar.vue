@@ -12,7 +12,7 @@
             <router-link to="/discover" class="nav-link">Discover</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/top" class="nav-link">Top</router-link>
+            <router-link to="/top-movies" class="nav-link">Top</router-link>
           </li>
         </ul>
       </div>
