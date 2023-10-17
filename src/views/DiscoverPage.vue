@@ -15,8 +15,8 @@
       <div class="filter-container">
         <select class="filter" v-model="genre">
           <option :value="null">All genres</option>
-          <option v-for="genre in possibleGenres" :key="genre" :value="genre">
-            {{ genre }}
+          <option v-for="genre in optionGenres" :key="genre.id" :value="genre.id">
+            {{ genre.name }}
           </option>
         </select>
       </div>
@@ -52,10 +52,12 @@
       const genre = ref(null);
       const vote = ref("");
       const keyword = ref("");
-      const possibleGenres = ref([]);
+      let optionGenres = ref([]);
   
       onMounted(async () => {
-        possibleGenres.value = await getGenres();
+        const data = await getGenres();
+        optionGenres.value = data.data.genres
+     
       });
   
       const applyFilters = async () => {
@@ -68,7 +70,7 @@
         genre,
         vote,
         keyword,
-        possibleGenres,
+        optionGenres,
         applyFilters,
       };
     },
@@ -107,13 +109,13 @@
  
  @media (max-width: 900px) {
    .filter-container {
-     width: 40%; /* На планшетах занимают 40% экрана */
+     width: 40%;
    }
  }
  
  @media (max-width: 460px) {
    .filter-container {
-     width: 80%; /* На мобильных устройствах занимают 80% экрана */
+     width: 80%;
    }
  }
  </style>
