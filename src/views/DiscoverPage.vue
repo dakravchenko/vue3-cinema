@@ -76,21 +76,22 @@
   </script>
  <style scoped>
  .discover-filters {
-   margin: 0 auto;
+   width: 100%; 
    display: flex;
-   flex-direction: column; /* Располагаем элементы вертикально */
-   align-items: center; /* Центрируем элементы по горизонтали */
+   flex-direction: column; 
+   align-items: center; 
+   margin-top: 20px
  }
  
  .filter-container {
-   width: 80%; /* На мобильных устройствах занимают 80% экрана */
-   margin-bottom: 10px; /* Отступ между элементами */
+   width: 25%;
+   margin-bottom: 20px;
  }
  
  .discover-filters input,
  .discover-filters select,
  .discover-filters button {
-   width: 100%; /* На всех экранах занимают всю ширину своего контейнера */
+   width: 100%;
    padding: 15px;
    margin: 0;
    border: 2px solid #958d8d;
@@ -104,23 +105,15 @@
    font-family: "Inter";
  }
  
- @media (min-width: 901px) {
+ @media (max-width: 900px) {
    .filter-container {
-     width: 25%; /* На больших экранах занимают четверть экрана */
-   }
- 
-   .discover-filters {
-     width: 25%; /* Добавляем ширину контейнеру на больших экранах */
+     width: 40%; /* На планшетах занимают 40% экрана */
    }
  }
  
- @media (min-width: 461px) and (max-width: 900px) {
+ @media (max-width: 460px) {
    .filter-container {
-     width: 33%; /* На планшетах занимают треть экрана */
-   }
- 
-   .discover-filters {
-     width: 33%; /* Добавляем ширину контейнеру на планшетах */
+     width: 80%; /* На мобильных устройствах занимают 80% экрана */
    }
  }
  </style>
