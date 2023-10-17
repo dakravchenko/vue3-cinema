@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import MovieDetails from '../views/MovieDetailsView.vue'
+import DiscoverPage from '../views/DiscoverPage.vue'
 import TopMovies from '../views/TopMovies.vue'
 import NotFound from '../views/NotFound.vue'
 
@@ -14,6 +15,11 @@ const routes = [
     path: '/top-movies',
     name: 'top-movies',
     component: TopMovies
+  },
+  {
+    path: '/discover',
+    name: 'discover',
+    component: DiscoverPage
   },
   {
     path: '/movie/:id',
