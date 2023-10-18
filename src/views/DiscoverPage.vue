@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isFilterSection">
     <div class="discover-filters">
       <div class="filter-container">
         <input
@@ -39,20 +39,34 @@
       </div>
     </div>
   </div>
+  <div v-else>
+    <ErrorDisplayingMovies :error="error" />
+    <Loader v-if="isLoading" />
+    <MovieResultsDisplay :movies="movies" />
+  </div>
 </template>
   
   <script>
   import { ref, onMounted } from "vue";
   import getGenres from '../composables/getGenres'
   import getFilmsWithFilters from '../composables/getFilmsWithFilters'
+  import MovieResultsDisplay from '../components/MovieResultsDisplay.vue';
+  import ErrorDisplayingMovies from '../components/ErrorDisplayingMovies.vue';
+  import Loader from '../components/LoaderComponent.vue'
   
   export default {
+    components: { MovieResultsDisplay, ErrorDisplayingMovies, Loader },
     setup() {
+      const isFilterSection = ref(true)
       const year = ref("");
       const genre = ref(null);
       const vote = ref("");
       const keyword = ref("");
       let optionGenres = ref([]);
+
+      const movies = ref([]);
+    const error = ref(null);
+    const isLoading = ref(false);
   
       onMounted(async () => {
         const data = await getGenres();
@@ -61,8 +75,15 @@
       });
   
       const applyFilters = async () => {
-        const movies = await getFilmsWithFilters(year.value, genre.value, vote.value, keyword.value);
-        console.log(movies)
+        isFilterSection.value = false
+        isLoading.value = true;
+        const { data, errorMessage } = await getFilmsWithFilters(year.value, genre.value, vote.value, keyword.value);
+        if (errorMessage) {
+        error.value = errorMessage;
+      } else {
+        movies.value = data.results;
+      }
+      isLoading.value = false;
       };
   
       return {
@@ -72,6 +93,10 @@
         keyword,
         optionGenres,
         applyFilters,
+        isFilterSection,
+        movies,
+        error,
+        isLoading
       };
     },
   };
