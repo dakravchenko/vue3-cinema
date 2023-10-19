@@ -40,6 +40,9 @@
     </div>
   </div>
   <div v-else>
+    <div class="return-container">
+      <button class="return-button" @click="returnToFilters">Return to Filters</button>
+    </div>
     <ErrorDisplayingMovies :error="error" />
     <Loader v-if="isLoading" />
     <MovieResultsDisplay :movies="movies" />
@@ -85,6 +88,10 @@
       }
       isLoading.value = false;
       };
+
+      const returnToFilters = () => {
+      isFilterSection.value = true;
+    };
   
       return {
         year,
@@ -96,51 +103,72 @@
         isFilterSection,
         movies,
         error,
-        isLoading
+        isLoading,
+        returnToFilters
       };
     },
   };
   </script>
- <style scoped>
- .discover-filters {
-   width: 100%; 
-   display: flex;
-   flex-direction: column; 
-   align-items: center; 
-   margin-top: 20px
- }
- 
- .filter-container {
-   width: 25%;
-   margin-bottom: 20px;
- }
- 
- .discover-filters input,
- .discover-filters select,
- .discover-filters button {
-   width: 100%;
-   padding: 15px;
-   margin: 0;
-   border: 2px solid #958d8d;
-   border-width: thick;
-   border-radius: 50px;
- }
- 
- select,
- option {
-   font-size: 20px;
-   font-family: "Inter";
- }
- 
- @media (max-width: 900px) {
-   .filter-container {
-     width: 40%;
-   }
- }
- 
- @media (max-width: 460px) {
-   .filter-container {
-     width: 80%;
-   }
- }
- </style>
+<style scoped>
+.discover-filters {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.return-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  margin: 0 auto; /* Горизонтальное выравнивание по центру */
+}
+
+.return-button {
+  width: 20%;
+  padding: 15px;
+  margin: 0 auto; /* Горизонтальное выравнивание по центру */
+  border: 2px solid #958d8d;
+  border-width: thick;
+  border-radius: 50px;
+  font-size: 20px;
+  font-family: "Inter";
+}
+
+.filter-container {
+  width: 25%;
+  margin-bottom: 20px;
+}
+
+.discover-filters input,
+.discover-filters select,
+.discover-filters button {
+  width: 100%;
+  padding: 15px;
+  margin: 0;
+  border: 2px solid #958d8d;
+  border-width: thick;
+  border-radius: 50px;
+}
+
+select,
+option {
+  font-size: 20px;
+  font-family: "Inter";
+}
+
+@media (max-width: 900px) {
+  .filter-container {
+    width: 40%;
+  }
+}
+
+@media (max-width: 460px) {
+  .filter-container {
+    width: 80%;
+  }
+}
+</style>
