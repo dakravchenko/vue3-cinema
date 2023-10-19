@@ -1,31 +1,14 @@
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 
-export default function useMovieFilter(initialMovies) {
-  const selectedGenres = ref([]);
-
-  const filteredMovies = computed(() => {
-    if (selectedGenres.value.length === 0) {
-      return initialMovies;
+export function useFilterMoviesByGenre(movies, selectedGenreId) {
+  const filterMoviesByGenre = () => {
+    if (selectedGenreId === null) {
+      return movies.value;
     }
-
-    return initialMovies.filter((movie) => {
-      return selectedGenres.value.every((genreId) => {
-        return movie.genre_ids.includes(genreId);
-      });
-    });
-  });
-
-  const toggleGenre = (genreId) => {
-    if (selectedGenres.value.includes(genreId)) {
-      selectedGenres.value = selectedGenres.value.filter((id) => id !== genreId);
-    } else {
-      selectedGenres.value.push(genreId);
-    }
+    return movies.value.filter((movie) => movie.genre_ids.includes(selectedGenreId));
   };
 
-  return {
-    selectedGenres,
-    toggleGenre,
-    filteredMovies,
-  };
+  const filteredMovies = computed(filterMoviesByGenre);
+
+  return { filteredMovies };
 }
