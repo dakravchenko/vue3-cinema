@@ -4,13 +4,16 @@
   </router-link>
   <h2>{{ movieTitleAndRating }}</h2>
   <h3>{{ movieDescription }}</h3>
+  <GenresList :genreIds="movie.genre_ids"/>
 </template>
 
 <script>
+import GenresList from './GenresList.vue'
 export default {
   props: {
     movie: Object,
   },
+  components: {GenresList},
   methods: {
     getFilmTitleAndRating(movie) {
       const releaseDate = new Date(movie.release_date);
@@ -58,6 +61,7 @@ h3 {
   font-family: "Epilogue";
   line-height: 1.4;
 }
+
 
 @media (max-width: 1600px) {
   .poster {
