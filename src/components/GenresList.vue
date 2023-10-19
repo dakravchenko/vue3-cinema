@@ -4,6 +4,7 @@
         v-for="genreId in genreIds"
         :key="genreId"
         class="genre"
+        @click="selectGenre(genreId)"
       >
         {{ getGenreName(genreId) }}
       </span>
@@ -11,7 +12,7 @@
   </template>
   
   <script>
-  import { ref, onMounted } from 'vue';
+  import { ref, onMounted, provide } from 'vue';
   import getGenres from '../composables/getGenres'
   
   export default {
@@ -20,11 +21,18 @@
     },
     setup() {
       const genres = ref([]);
+      const selectedGenreId = ref(null);
   
       const getGenreName = (genreId) => {
         const genre = genres.value.find((genre) => genre.id === genreId);
         return genre? genre.name : '';
       };
+
+      const selectGenre = (genreId) => {
+      selectedGenreId.value = genreId;
+    };
+
+    provide('selectedGenreId', selectedGenreId);
   
         onMounted(async () => {
         const data = await getGenres();
@@ -33,7 +41,7 @@
     
   
       return {
-        getGenreName,
+        getGenreName, selectGenre
       };
     },
   };

@@ -3,19 +3,20 @@
     <MovieByNameInput @update:query="updateQuery" />
     <ErrorDisplayingMovies :error="error" />
     <Loader v-if="isLoading" />
-    <MovieResultsDisplay :movies="movies" />
+    <MovieResultsDisplay :movies="displayedMovies" />
     <PagerComponent :pageCount="pageCount" @changePage="updateCurrentPage" />
   </div>
 </template>
 
 <script>
-import { ref, watch } from 'vue';
+import { ref, watch, inject } from 'vue';
 import getFilmsByName from '../composables/getFilmsByName';
 import MovieResultsDisplay from '../components/MovieResultsDisplay.vue';
 import ErrorDisplayingMovies from '../components/ErrorDisplayingMovies.vue';
 import MovieByNameInput from '../components/MovieByNameInput.vue';
 import PagerComponent from '../components/PagerComponent.vue';
 import Loader from '../components/LoaderComponent.vue'
+import { useFilterMoviesByGenre } from '../composables/useFilterMoviesByGenre'
 
 export default {
   name: 'HomeView',
@@ -27,7 +28,10 @@ export default {
     const pageCount = ref(null);
     const currentPage = ref(1);
     const isLoading = ref(false);
+    const selectedGenreId = inject('selectedGenreId', ref(null))
+    const displayedMovies = ref([])
     let timer = null;
+
 
     const updateQuery = (newQuery) => {
       query.value = newQuery;
@@ -53,6 +57,7 @@ export default {
         error.value = errorMessage;
       } else {
         movies.value = data.results;
+        displayedMovies.value = data.results;
         pageCount.value = data.total_pages;
       }
       isLoading.value = false;
@@ -66,7 +71,19 @@ export default {
       refreshData();
     });
 
-    return { movies, error, query, pageCount, updateQuery, updateCurrentPage, isLoading };
+// Добавьте вывод значения selectedGenreId для отладки
+console.log('selectedGenreId:', selectedGenreId.value);
+
+// ...
+
+watch(selectedGenreId, (newGenreId) => {
+  console.log('selectedGenreId changed:', newGenreId);
+  selectedGenreId.value = newGenreId;
+  displayedMovies.value = useFilterMoviesByGenre(movies.value, selectedGenreId.value);
+});
+
+
+    return { movies, error, query, pageCount, updateQuery, updateCurrentPage, isLoading, displayedMovies };
   },
 };
 </script>
