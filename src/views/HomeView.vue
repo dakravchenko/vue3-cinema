@@ -77,7 +77,6 @@ console.log('selectedGenreId:', selectedGenreId.value);
 // ...
 
 watch(selectedGenreId, (newGenreId) => {
-  console.log('selectedGenreId changed:', newGenreId);
   selectedGenreId.value = newGenreId;
   displayedMovies.value = useFilterMoviesByGenre(movies.value, selectedGenreId.value);
 });
