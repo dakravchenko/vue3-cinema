@@ -32,6 +32,15 @@ This is a simple web application for searching and discovering movies using The 
 There may be issues related to API rate limiting or network connectivity. The application handles such errors gracefully and displays appropriate messages.
 Problems with dotenv pack. Apikey is not hidden
 
+## Future Features (Frontend)
+
+- **Genre Filtering:** In the future, we plan to implement frontend genre filtering, allowing users to filter movies by their genres directly on the frontend.
+
+## Future Features (Backend)
+
+- **User Authentication:** We're planning to introduce user authentication to the backend, allowing users to create accounts, log in, and have personalized experiences.
+- **Review and Rating System:** Additionally, there are plans to add the capability for users to leave reviews and ratings for movies, enhancing the interaction and engagement with the platform.
+
 
 ## Acknowledgments
 
