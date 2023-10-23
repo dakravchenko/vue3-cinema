@@ -1,4 +1,8 @@
 <template>
+  <div class="greeting-block" v-if="movies.length === 0 && error === null">
+    <h1>Hello THERE!</h1>
+    <h1>Would you like to find a movie?</h1>
+  </div>
   <div class="home">
     <MovieByNameInput @update:query="updateQuery" />
     <ErrorDisplayingMovies :error="error" />
@@ -72,3 +76,23 @@ export default {
   },
 };
 </script>
+
+<style>
+.greeting-block h1{
+  background: linear-gradient(270deg, #90cea1 0%, #01b4e4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  text-align: center;
+  font-family: "Epilogue";
+  font-weight: 900;
+  font-size: 30px;
+  line-height: 31px;
+  text-transform: uppercase;
+}
+.greeting-block {
+  margin: 30px 0;
+}
+
+</style>
