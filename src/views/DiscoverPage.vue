@@ -39,7 +39,16 @@
       </div>
     </div>
   </div>
-  <div v-else>
+  <div v-if="!isFilterSection && movies.length === 0">
+    <div class="return-container">
+      <button class="return-button" @click="returnToFilters">Return to Filters</button>
+    </div>
+    <div class="error-container">
+      <h2>Unfortunately, there are no movies matching the selected filters.</h2>
+      <h2>Try using other filters.</h2>
+    </div>
+  </div>
+  <div v-if="!isFilterSection && movies.length > 0">
     <div class="return-container">
       <button class="return-button" @click="returnToFilters">Return to Filters</button>
     </div>
@@ -124,13 +133,13 @@
   justify-content: center;
   text-align: center;
   height: 100%;
-  margin: 0 auto; /* Горизонтальное выравнивание по центру */
+  margin: 0 auto;
 }
 
 .return-button {
   width: 20%;
   padding: 15px;
-  margin: 0 auto; /* Горизонтальное выравнивание по центру */
+  margin: 0 auto; 
   border: 2px solid #958d8d;
   border-width: thick;
   border-radius: 50px;
@@ -155,10 +164,13 @@
 }
 
 select,
-option {
+option, 
+.apply-button {
   font-size: 20px;
   font-family: "Inter";
 }
+
+
 
 @media (max-width: 900px) {
   .filter-container {

@@ -90,8 +90,8 @@ export default {
 
 .prev-btn,
 .next-btn {
-  padding: 7px 20px; 
-  background-color: #0074e4;
+  padding: 7px 20px;
+  background: linear-gradient(270deg, #90cea1 0%, #01b4e4 100%);
   color: #fff;
   cursor: pointer;
 }
@@ -117,8 +117,8 @@ export default {
   background-color: #aba2a2;
 
 }
-button:disabled {
-  background-color: #c2adad;
+.prev-btn:disabled,
+.next-btn:disabled {
   cursor: not-allowed;
   pointer-events: none;
 }
