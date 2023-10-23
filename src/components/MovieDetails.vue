@@ -29,11 +29,14 @@ export default {
 </script>
 
 <style>
+/* Добавьте стили для шрифта и увеличьте размер шрифта */
+
 .movie-details {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f7f7f7;
+  font-family: 'Epilogue', sans-serif;
 }
 
 .movie-details-header {
@@ -42,13 +45,14 @@ export default {
 }
 
 h1 {
-  font-size: 24px;
+  font-size: 32px;
   margin: 0;
 }
 
 .tagline {
   font-style: italic;
   color: #555;
+  font-size: 18px;
 }
 
 .movie-poster img {
