@@ -16,7 +16,6 @@ export default async function getFilmsById(id) {
         throw new Error("No film was found");
       }
       const movieData = await res.json();
-      console.log(movieData)
       return { data: movieData, errorMessage: null }
     } catch (error) {
       return { data: null, errorMessage: error.message }

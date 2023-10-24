@@ -8,7 +8,7 @@
     <ErrorDisplayingMovies :error="error" />
     <Loader v-if="isLoading" />
     <MovieResultsDisplay :movies="movies" />
-    <PagerComponent :pageCount="pageCount" @changePage="updateCurrentPage" />
+    <!-- <PagerComponent :pageCount="pageCount" @changePage="updateCurrentPage" /> -->
   </div>
 </template>
 
@@ -18,12 +18,12 @@ import getFilmsByName from '../composables/getFilmsByName';
 import MovieResultsDisplay from '../components/MovieResultsDisplay.vue';
 import ErrorDisplayingMovies from '../components/ErrorDisplayingMovies.vue';
 import MovieByNameInput from '../components/MovieByNameInput.vue';
-import PagerComponent from '../components/PagerComponent.vue';
+// import PagerComponent from '../components/PagerComponent.vue';
 import Loader from '../components/LoaderComponent.vue'
 
 export default {
   name: 'HomeView',
-  components: { MovieResultsDisplay, ErrorDisplayingMovies, MovieByNameInput, PagerComponent, Loader },
+  components: { MovieResultsDisplay, ErrorDisplayingMovies, MovieByNameInput, Loader},
   setup() {
     const movies = ref([]);
     const error = ref(null);
