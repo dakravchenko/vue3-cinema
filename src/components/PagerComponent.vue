@@ -17,47 +17,50 @@ export default {
   data() {
     return {
       currentPage: 1,
-      buttonsValues: []
     }
   },
-  methods: {
-    calculateValuesOfButtons() {
-      const maxButtons = 5
-      this.buttonsValues = []
+  computed: {
+    buttonsValues() {
+      const maxButtons = 5;
+      const buttons = [];
 
       if (this.pageCount <= maxButtons) {
         for (let x = 1; x <= this.pageCount; x++) {
-          this.buttonsValues.push(x)
+          buttons.push(x);
         }
       } else if (this.pageCount > maxButtons && this.currentPage === 1) {
         for (let x = 1; x <= maxButtons; x++) {
-          this.buttonsValues.push(x)
+          buttons.push(x);
         }
       } else if (this.pageCount > maxButtons && this.currentPage !== 1) {
-        this.buttonsValues.push(1)
-        this.buttonsValues.push(this.currentPage)
+        buttons.push(1);
+        buttons.push(this.currentPage);
         for (let x = this.currentPage + 1; x <= this.currentPage + 3 && x <= this.pageCount; x++) {
-          this.buttonsValues.push(x)
+          buttons.push(x);
         }
       }
-    },
+
+      return buttons;
+    }
+  },
+  methods: {
     previousPage() {
       if (this.currentPage > 1) {
-        this.currentPage--
-        this.$emit('changePage', this.currentPage)
+        this.currentPage--;
+        this.$emit('changePage', this.currentPage);
         this.scrollToTop();
       }
     },
     nextPage() {
       if (this.currentPage < this.pageCount) {
-        this.currentPage++
-        this.$emit('changePage', this.currentPage)
+        this.currentPage++;
+        this.$emit('changePage', this.currentPage);
         this.scrollToTop();
       }
     },
     goToPage(page) {
-      this.currentPage = page
-      this.$emit('changePage', this.currentPage)
+      this.currentPage = page;
+      this.$emit('changePage', this.currentPage);
       this.scrollToTop();
     },
     scrollToTop() {
@@ -66,9 +69,6 @@ export default {
         behavior: 'smooth',
       });
     },
-  },
-  mounted() {
-    this.calculateValuesOfButtons()
   }
 }
 </script>
