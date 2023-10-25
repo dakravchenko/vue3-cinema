@@ -27,7 +27,7 @@ export default {
 
     const updateCurrentPage = (newPage) => {
       currentPage.value = newPage;
-      fetchData(newPage)
+      fetchData(currentPage.value)
     };
 
 
