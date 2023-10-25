@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue';
+import { ref} from 'vue';
 import getTopMovies from '../composables/getTopMovies';
 import MovieResultsDisplay from '../components/MovieResultsDisplay.vue';
 import ErrorDisplayingMovies from '../components/ErrorDisplayingMovies.vue';
@@ -27,12 +27,13 @@ export default {
 
     const updateCurrentPage = (newPage) => {
       currentPage.value = newPage;
+      fetchData()
     };
 
 
-    const fetchData = async () => {
+    const fetchData = async (newPage) => {
       isLoading.value = true;
-      const { data, errorMessage } = await getTopMovies(currentPage.value);
+      const { data, errorMessage } = await getTopMovies(newPage);
       if (errorMessage) {
         error.value = errorMessage;
       } else {
@@ -41,12 +42,6 @@ export default {
       }
       isLoading.value = false;
     };
-
-    watch(currentPage, () => {
-        fetchData();
-    });
-
-    fetchData();
 
     return { movies, error, pageCount, isLoading, updateCurrentPage };
   },
