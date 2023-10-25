@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue';
+import { ref} from 'vue';
 import getTopMovies from '../composables/getTopMovies';
 import MovieResultsDisplay from '../components/MovieResultsDisplay.vue';
 import ErrorDisplayingMovies from '../components/ErrorDisplayingMovies.vue';
@@ -27,6 +27,7 @@ export default {
 
     const updateCurrentPage = (newPage) => {
       currentPage.value = newPage;
+      fetchData()
     };
 
 
@@ -41,10 +42,6 @@ export default {
       }
       isLoading.value = false;
     };
-
-    watch(currentPage, () => {
-        fetchData();
-    });
 
     fetchData();
 
