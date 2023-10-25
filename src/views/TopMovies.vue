@@ -27,6 +27,8 @@ export default {
 
     const updateCurrentPage = (newPage) => {
       currentPage.value = newPage;
+      fetchData();
+
     };
 
 
@@ -42,9 +44,6 @@ export default {
       isLoading.value = false;
     };
 
-    watch(currentPage, () => {
-        fetchData();
-    });
 
     fetchData();
 
