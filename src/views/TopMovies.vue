@@ -46,6 +46,8 @@ export default {
         fetchData();
     });
 
+    fetchData();
+
     return { movies, error, pageCount, isLoading, updateCurrentPage };
   },
 };
