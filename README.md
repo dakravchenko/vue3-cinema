@@ -4,8 +4,6 @@ Try it here https://vue3-cinema.vercel.app/
 This is a simple web application for searching and discovering movies using The Movie Database (TMDb) API https://www.themoviedb.org/.
 
 ## Known Issues
-On prod routes work not as expected !!
-Genres are not displayed in MovieCard on prod !! 
 There may be issues related to API rate limiting or network connectivity. The application handles such errors gracefully and displays appropriate messages.
 Problems with dotenv pack. Apikey is not hidden
 
