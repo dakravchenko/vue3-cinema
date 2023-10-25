@@ -67,7 +67,7 @@ export default {
       });
     },
   },
-  updated() {
+  mounted() {
     this.calculateValuesOfButtons()
   }
 }
